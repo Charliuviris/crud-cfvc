@@ -13,6 +13,7 @@ dotenv.config({ path: './env/.env'});
 //4 -seteamos el directorio de assets
 app.use('/resources',express.static('public'));
 app.use('/resources', express.static(__dirname + '/public'));
+app.use('/img', express.static('imagenes'));
 
 //5 - Establecemos el motor de plantillas
 app.set('view engine','ejs');

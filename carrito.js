@@ -1,21 +1,42 @@
 const carrito = document.getElementById('carrito');
 const elementos = document.getElementById('lista-1');
 const lista = document.querySelector("#lista-carrito tbody");
-const vaciarCarrito = document.getElementById('vaciarCarrito');
+const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
 
 
 cargarEventListeners();
 
-function cargarEventListeners() {
+/*function cargarEventListeners() {
   elementos.addEventListener('click', comprarElemento);
   carrito.addEventListener('click', eliminarElemento);
-  vaciarCarrito.addEventListener('click', vaciarCarrito);
+  vaciarCarrito.addEventListener('click', vaciarCarritoFn);
+}*/
+
+function cargarEventListeners() {
+  // elementos.addEventListener('click', comprarElemento);
+   if (elementos) {
+       elementos.addEventListener('click', comprarElemento);
+     } else {
+       console.log('El elemento no existe en el DOM');
+     }
+ //  carrito.addEventListener('click',eliminarElemento);
+   if (carrito) {
+       carrito.addEventListener('click', eliminarElemento);
+     } else {
+       console.log('El elemento no existe en el DOM');
+     }
+ //  vaciarCarritoBtn.addEventListener('click', vaciarCarritoFn);
+   if (vaciarCarritoBtn) {
+       vaciarCarritoBtn.addEventListener('click', vaciarCarritoFn);
+     } else {
+       console.log('El elemento no existe en el DOM');
+     }
 }
 
 function comprarElemento(e){
-    e.prevetdefault();
+    e.preventdefault();
     if(e.target.classList.contains('agregar-carrito')){
-        const elemento = e.target.parentElement;
+        const elemento = e.target.parentElement.parentElement;
         leerDatosElemento(elemento);
     }
 }
@@ -94,7 +115,7 @@ function eliminarElemento(e) {
 
 
 
-function vaciarCarrito() {
+function vaciarCarritoFn() {
     connection.query(
       `DELETE FROM carrito`,
       function (err, results, fields) {
