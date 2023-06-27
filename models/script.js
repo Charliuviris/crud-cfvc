@@ -1,3 +1,5 @@
+const connection = require("connection")
+
 const carrito = document.getElementById('carrito');
 const elementos = document.getElementById('lista-1');
 const lista = document.querySelector("#lista-carrito tbody");

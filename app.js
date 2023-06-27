@@ -125,6 +125,44 @@ app.get('/logout', function (req, res) {
 });
 
 
+const fs = require('fs');
+const mime = require('mime');
+
+
+const path = require('path');
+
+// Definir la ruta del archivo
+const rutaArchivo = './models/script.js';
+
+// Obtener la ruta absoluta del archivo
+const rutaAbsoluta = path.resolve(rutaArchivo);
+
+// Verificar si el archivo existe
+if (fs.existsSync(rutaAbsoluta)) {
+  console.log('El archivo se encuentra en la ubicación correcta.');
+} else {
+  console.log('El archivo no se encuentra en la ubicación correcta.');
+}
+
+app.get('/ver', function(req, res) {
+	const url = './models/script.js';
+  
+	fs.readFile(url, function(err, data) {
+	  if (err) {
+		res.writeHead(404);
+		return res.end("Archivo no encontrado.");
+	  }
+  
+	  const mimeType = mime.lookup(url);
+	  res.set('Content-Type', 'text/javascript');
+	  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+	  res.set('Pragma', 'no-cache');
+	  res.set('Expires', '0');
+	  res.writeHead(200);
+	  res.end(data);
+	});
+  });
+
 app.listen(3000, (req, res)=>{
     console.log('SERVER RUNNING IN http://localhost:3000');
 });
